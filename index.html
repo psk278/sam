@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115744616-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            
+            gtag('config', 'UA-115744616-1');
+            </script>
+
+        
+        <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Bangers|Roboto:400,700" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style type="text/css">
+        
+        html,
+        body {
+          height: 100%;
+        }
+
+        body {
+          font-family: 'Open Sans', sans-serif;
+          display: -ms-flexbox;
+          display: -webkit-box;
+          display: flex;
+          -ms-flex-align: center;
+          -ms-flex-pack: center;
+          -webkit-box-align: center;
+          align-items: center;
+          -webkit-box-pack: center;
+          justify-content: center;
+          padding-top: 40px;
+          padding-bottom: 40px;
+          background-color: #f5f5f5;
+          background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+    background-size: 400% 400%;
+    -webkit-animation: Gradient 15s ease infinite;
+    -moz-animation: Gradient 15s ease infinite;
+    animation: Gradient 15s ease infinite;
+        }
+
+        @-webkit-keyframes Gradient {
+    0% {
+        background-position: 0% 50%
+    }
+    50% {
+        background-position: 100% 50%
+    }
+    100% {
+        background-position: 0% 50%
+    }
+}
+
+@-moz-keyframes Gradient {
+    0% {
+        background-position: 0% 50%
+    }
+    50% {
+        background-position: 100% 50%
+    }
+    100% {
+        background-position: 0% 50%
+    }
+}
+
+@keyframes Gradient {
+    0% {
+        background-position: 0% 50%
+    }
+    50% {
+        background-position: 100% 50%
+    }
+    100% {
+        background-position: 0% 50%
+    }
+}
+
+        .form-signin {
+          width: 100%;
+          max-width: 330px;
+          padding: 15px;
+          margin: 0 auto;
+        }
+        .form-signin .checkbox {
+          font-weight: 400;
+        }
+        .form-signin .form-control {
+          position: relative;
+          box-sizing: border-box;
+          height: auto;
+          padding: 10px;
+          font-size: 16px;
+        }
+        .form-signin .form-control:focus {
+          z-index: 2;
+        }
+        .form-signin input[type="email"] {
+          margin-bottom: -1px;
+          border-bottom-right-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+        .form-signin input[type="password"] {
+          margin-bottom: 10px;
+          border-top-left-radius: 0;
+          border-top-right-radius: 0;
+        }
+
+        #myVideo {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%; 
+            min-height: 100%;
+            display: none;
+        }
+        #output {
+          position: fixed;
+          font-size: 11vw;
+          font-weight: bolder;
+          right: 0;
+          line-height: 1.1em;
+          bottom: 0;
+          min-width: 100%;
+          min-height: 100%;
+          display: none;
+          justify-content: center;
+          background: rgba(211,17,69,0.85);
+          align-items: center;
+          text-align: center;
+          color: #FFF;
+        }
+        #myVideo.show {
+            display: block;
+        }
+        #output.show {
+            display: flex;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        h1 {
+          color: #fff;
+          font-family: 'Bangers', cursive;
+        }
+
+    </style>
+    </head>
+    <body class="text-center" data-gr-c-s-loaded="true">
+
+<script>
+    function SamText() {
+        request = new XMLHttpRequest()
+        url = "https://api.askjohnwhite.com/text/"
+        request.open("GET", url, false); // false for synchronous request
+        request.send(null);
+        var qPanel = document.getElementById("output");
+
+        //Inject Text
+        qPanel.innerHTML = request.responseText;
+
+        //Show After injection
+        qPanel.classList.add('show');
+
+        //Event handler for closing qoute panel on click
+        qPanel.addEventListener("click", function(){ 
+            qPanel.classList.remove('show');
+        });
+    }
+
+    function SamVideo() {
+        request = new XMLHttpRequest()
+        url = "https://api.askjohnwhite.com/video/"
+        request.open("GET", url, false); // false for synchronous request
+        request.send(null);
+        var MyString = request.responseText;
+        var TrimMyString = MyString.substr(1).slice(0, -1);
+        var VideoURL = "HTTP://samvideos.askjohnwhite.com/" + TrimMyString;
+        
+        var video = document.getElementById('myVideo');
+        var sources = video.getElementsByTagName('source');
+        sources[0].src = VideoURL;
+        video.load(); 
+
+        // Since the overlay is display:none, add class 'show' after load
+        video.classList.add('show');
+
+        //Listener for when video ends, when video end remove class 'show'
+        video.onended = function() {
+            video.classList.remove('show');
+        };
+    }
+</script>
+
+    <div class="form-signin">
+      <img class="mb-4" src="sam.svg" alt="" width="144" height="144">
+      <h1>Samism</h1>
+      <label for="inputEmail" class="sr-only">Email address</label>
+
+      <!-- Button Panel -->
+      <button onclick="SamText()" class="btn btn-lg btn-info btn-block">Quotes</button>
+      <button onclick="SamVideo()" class="btn btn-lg btn-danger btn-block">Videos</button>
+
+      <!-- Qoute Panel -->
+      <div id="output"></div>
+
+
+      <p class="mt-5 mb-3 text-muted">© 2017-2018</p>
+    </div>
+
+       <!-- Overlay -->
+       <video id="myVideo" width="auto" autoplay>
+           <source src="" type="video/mp4" />
+       </video>
+       
+    </body>
+</html>
